@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html lang="en-us">
 <head>
-    <title>Create developer</title>
+    <title>Create project</title>
     <style>
         <%@include file="/view/style.css" %>
     </style>
@@ -17,7 +17,7 @@
                 <p>ID</p>
             </td>
             <td>
-                <input type="text" name="id" tabindex="1"></td>
+                <input type="number" name="id" tabindex="1"></td>
         </tr>
         <tr>
             <td>
@@ -53,7 +53,5 @@
     <p style="color: darkslateblue">${message}</p><br>
 
 </c:if>
-
-
 </body>
 </html>
