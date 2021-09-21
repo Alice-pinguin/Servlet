@@ -58,7 +58,7 @@ public class ProjectServlet extends HttpServlet {
             req.setAttribute ("message", "New project created: " + project);
         }
         if (action.startsWith ("/findProject")) {
-            final String id = req.getParameter ("id").trim ();
+            final String id = req.getParameter ("id");
             final Optional<Project> project = projectRepository.findById (Long.valueOf (id));
             if (!project.isPresent ()) {
                 req.setAttribute ("message", "Project not found");
@@ -83,7 +83,7 @@ public class ProjectServlet extends HttpServlet {
     private Project mapProject(HttpServletRequest req) {
         final Long projectId = Long.valueOf (req.getParameter ("id"));
         final String projectName = req.getParameter ("name");
-        final String projectField = req.getParameter ("age");
+        final String projectField = req.getParameter ("field");
         final Long projectCost = Long.valueOf (req.getParameter ("cost"));
         return new Project (projectId, projectName, projectField, projectCost);
     }

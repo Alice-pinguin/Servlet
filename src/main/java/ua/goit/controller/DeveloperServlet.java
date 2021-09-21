@@ -85,7 +85,7 @@ public class DeveloperServlet extends HttpServlet {
         final Long developerId = Long.valueOf (req.getParameter ("id"));
         final String developerName = req.getParameter ("name");
         final Integer developerAge = Integer.valueOf (req.getParameter ("age"));
-        final String developerGender = req.getParameter ("gender").trim ();
+        final String developerGender = req.getParameter ("gender");
         final Long developerSalary = Long.valueOf (req.getParameter ("salary"));
         return new Developer (developerId, developerName, developerAge, developerGender, developerSalary);
     }

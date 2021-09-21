@@ -25,20 +25,20 @@
             </td>
             <td>
 
-                <input type="text" name="name" tabindex="1"></td>
+                <input type="text" name="name" tabindex="2"></td>
         </tr>
         <tr>
             <td>
                 <p>Field</p>
             </td>
             <td>
-                <input type="text" name="field" tabindex="1"></td>
+                <input type="text" name="field" tabindex="3"></td>
         </tr>
         <tr>
             <td>
                 <p>Cost</p>
             </td>
-            <td><input type="number" name="cost" tabindex="2"></td>
+            <td><input type="number" name="cost" tabindex="4"></td>
         </tr>
         </tbody>
     </table>

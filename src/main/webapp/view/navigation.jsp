@@ -1,4 +1,5 @@
 <div class="navigation">
+    <a href="${pageContext.request.contextPath}/">Home</a>
     <div class="dropdown">
         <button class="dropbtn">Company
             <i></i>

@@ -117,8 +117,6 @@ public class CrudRepositoryImpl<E extends BaseEntity<ID>, ID> implements Closeab
         }
     }
 
-
-
     @SneakyThrows
     private E executeStatement(PreparedStatement statement, E e) {
         int count = 1;
