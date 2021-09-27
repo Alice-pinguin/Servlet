@@ -7,6 +7,7 @@
         <div class="dropdown-content">
             <a href="${pageContext.request.contextPath}/company/createCompany">Crete company</a>
             <a href="${pageContext.request.contextPath}/company/findCompany">Find by ID</a>
+            <a href="${pageContext.request.contextPath}/company/updateCompany">Update company</a>
             <a href="${pageContext.request.contextPath}/company/deleteCompany">Delete company</a>
             <a href="${pageContext.request.contextPath}/company/allCompanies">View all companies</a>
         </div>

@@ -39,11 +39,13 @@ public class CompanyServlet extends HttpServlet {
         if (action.startsWith ("/deleteCompany")) {
             req.getRequestDispatcher ("/view/company/delete_company.jsp").forward (req, resp);
         }
+        if (action.startsWith ("/updateCompany")) {
+            req.getRequestDispatcher ("/view/company/update_company.jsp").forward (req, resp);
+
+        }
         if (action.startsWith ("/allCompanies")) {
             List<Company> companies = companyRepository.findAll ();
-            System.out.println (companies.get (0));
             req.setAttribute ("companies", companies);
-            System.out.println (companies.get (1));
             req.getRequestDispatcher ("/view/company/all_companies.jsp").forward (req, resp);
         }
     }
@@ -54,7 +56,7 @@ public class CompanyServlet extends HttpServlet {
         if (action.startsWith ("/createCompany")) {
             Company company = mapCompany (req);
             req.getRequestDispatcher ("/view/company/create_company.jsp").forward (req, resp);
-            companyRepository.save (company);
+            companyRepository.create (company);
             req.setAttribute ("message", "New Company created: " + company);
         }
         if (action.startsWith ("/findCompany")) {
@@ -78,7 +80,17 @@ public class CompanyServlet extends HttpServlet {
                 req.setAttribute ("message", String.format ("Company with ID=%s deleted", id));
             }
         }
-    }
+
+            if (action.startsWith ("/updateCompany")) {
+                Long id = Long.valueOf ((req.getParameter ("id")));
+                Optional<Company> company = companyRepository.findById (id);
+                String newCity = req.getParameter ("city");
+                company.get ().setCity (newCity);
+                companyRepository.update (company.orElseThrow (NullPointerException::new));
+                req.setAttribute ("message", "Company updated");
+            }
+            req.getRequestDispatcher ("/view/company/update_company.jsp").forward (req, resp);
+        }
 
     private Company mapCompany(HttpServletRequest req) {
         final Long companyId = Long.valueOf (req.getParameter ("id"));

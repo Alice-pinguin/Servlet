@@ -9,6 +9,7 @@
 </head>
 <body>
 <c:import url="/view/navigation.jsp"/>
+<h3>To update Developer provide an ID and new salary: </h3>
 <form method="post" action="updateDeveloper">
     <table>
         <tbody>

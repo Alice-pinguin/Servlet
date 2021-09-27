@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-
+@lombok.extern.log4j.Log4j
 @WebServlet(urlPatterns = "/project/*")
 public class ProjectServlet extends HttpServlet {
     private static final long serialVersionUID = -1916083755011099167L;
@@ -54,7 +54,7 @@ public class ProjectServlet extends HttpServlet {
         if (action.startsWith ("/createProject")) {
             Project project = mapProject (req);
             req.getRequestDispatcher ("/view/project/create_project.jsp").forward (req, resp);
-            projectRepository.save (project);
+            projectRepository.create (project);
             req.setAttribute ("message", "New project created: " + project);
         }
         if (action.startsWith ("/findProject")) {
@@ -69,16 +69,27 @@ public class ProjectServlet extends HttpServlet {
             }
         }
         if (action.startsWith ("/deleteProject")) {
-            Long id = Long.valueOf ((req.getParameter("id")));
+            Long id = Long.valueOf ((req.getParameter ("id")));
             Optional<Project> project = projectRepository.findById (id);
-            if(!project.isPresent ()){
-                req.setAttribute("message", "Project not found");
+            if (!project.isPresent ()) {
+                req.setAttribute ("message", "Project not found");
             } else {
                 projectRepository.deleteById (id);
-                req.setAttribute("message", String.format("Project with ID=%s deleted", id));
-            }
+                req.setAttribute ("message", String.format ("Project with ID=%s deleted", id));
             }
         }
+        if (action.startsWith ("/updateProject")) {
+            Long id = Long.valueOf ((req.getParameter ("id")));
+            Optional<Project> project = projectRepository.findById (id);
+            String newCost = req.getParameter ("cost");
+            project.get ().setCost (Long.valueOf (newCost));
+            projectRepository.update (project.get ());
+            req.setAttribute ("message", "Project  updated");
+
+        }
+        req.getRequestDispatcher ("/view/project/update_project.jsp").forward (req, resp);
+    }
+
 
     private Project mapProject(HttpServletRequest req) {
         final Long projectId = Long.valueOf (req.getParameter ("id"));

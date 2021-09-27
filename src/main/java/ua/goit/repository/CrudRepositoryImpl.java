@@ -101,21 +101,18 @@ public class CrudRepositoryImpl<E extends BaseEntity<ID>, ID> implements Closeab
     }
 
     @Override
-    public List<E> saveAll(Iterable<E> itrb) {
-        final List<E> result = new ArrayList<>();
-        for (E e : itrb) result.add(save(e));
-        return result;
-    }
-
     @SneakyThrows
-    public E save(E e) {
-        if (e.getId() == null || !findById(e.getId()).isPresent()) {
-            return executeStatement(createPreparedStatement, e);
-        } else {
-            updatePreparedStatement.setObject(columnFieldName.size() + 1, e.getId());
-            return executeStatement(updatePreparedStatement, e);
-        }
-    }
+    public E create(E e) {
+     return executeStatement(createPreparedStatement, e);
+  }
+
+  @Override
+   @SneakyThrows
+   public E update(E e) {
+       updatePreparedStatement.setObject(columnFieldName.size() + 1, e.getId());
+       return executeStatement(updatePreparedStatement, e);
+  }
+
 
     @SneakyThrows
     private E executeStatement(PreparedStatement statement, E e) {

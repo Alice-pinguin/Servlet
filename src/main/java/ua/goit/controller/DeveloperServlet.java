@@ -1,5 +1,6 @@
 package ua.goit.controller;
 
+import ua.goit.model.Customer;
 import ua.goit.model.Developer;
 import ua.goit.repository.CrudRepository;
 import ua.goit.repository.RepositoryFactory;
@@ -54,7 +55,7 @@ public class DeveloperServlet extends HttpServlet {
         if (action.startsWith ("/createDeveloper")) {
             Developer developer = mapDeveloper (req);
             req.getRequestDispatcher ("/view/developer/create_developer.jsp").forward (req, resp);
-            developerRepository.save (developer);
+            developerRepository.create (developer);
             req.setAttribute ("message", "New developer created: " + developer);
         }
         if (action.startsWith ("/findDeveloper")) {
@@ -69,17 +70,27 @@ public class DeveloperServlet extends HttpServlet {
             }
         }
         if (action.startsWith ("/deleteDeveloper")) {
-            Long id = Long.valueOf ((req.getParameter("id")));
+            Long id = Long.valueOf ((req.getParameter ("id")));
             Optional<Developer> developer = developerRepository.findById (id);
-            if(!developer.isPresent ()){
-                req.setAttribute("message", "Developer not found");
+            if (!developer.isPresent ()) {
+                req.setAttribute ("message", "Developer not found");
             } else {
                 developerRepository.deleteById (id);
-                req.setAttribute("message", String.format("Developer with ID=%s deleted", id));
+                req.setAttribute ("message", String.format ("Developer with ID=%s deleted", id));
             }
         }
+            if (action.startsWith ("/updateDeveloper")) {
+                Long id = Long.valueOf ((req.getParameter ("id")));
+                Optional<Developer> developer = developerRepository.findById (id);
+                String newSalary = req.getParameter ("salary");
+                developer.get ().setSalary (Long.valueOf (newSalary));
+                developerRepository.update (developer.get ());
+                req.setAttribute ("message", "Developer  updated");
+                }
+            req.getRequestDispatcher ("/view/developer/update_developer.jsp").forward (req, resp);
+        }
 
-    }
+
 
     private Developer mapDeveloper(HttpServletRequest req) {
         final Long developerId = Long.valueOf (req.getParameter ("id"));

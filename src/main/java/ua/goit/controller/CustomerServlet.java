@@ -1,5 +1,7 @@
 package ua.goit.controller;
 
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import ua.goit.model.Customer;
 import ua.goit.repository.CrudRepository;
 import ua.goit.repository.RepositoryFactory;
@@ -13,6 +15,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+@Log
 @WebServlet (urlPatterns = "/customer/*")
 public class CustomerServlet extends HttpServlet {
 
@@ -53,7 +56,7 @@ public class CustomerServlet extends HttpServlet {
         if (action.startsWith ("/createCustomer")) {
             Customer customer = mapCustomer (req);
             req.getRequestDispatcher ("/view/customer/create_customer.jsp").forward (req, resp);
-            customerRepository.save (customer);
+            customerRepository.create (customer);
             req.setAttribute ("message", "New customer created: " + customer);
         }
         if (action.startsWith ("/findCustomer")) {
@@ -61,34 +64,34 @@ public class CustomerServlet extends HttpServlet {
             final Optional<Customer> customer = customerRepository.findById (Long.valueOf (id));
             if (!customer.isPresent ()) {
                 req.setAttribute ("message", "Customer not found");
-                req.getRequestDispatcher ("/view/customer/find_customer.jsp").forward (req, resp);
             } else {
                 req.setAttribute ("message", String.format ("Customer found: %s", customer));
-                req.getRequestDispatcher ("/view/customer/find_customer.jsp").forward (req, resp);
             }
+            req.getRequestDispatcher ("/view/customer/find_customer.jsp").forward (req, resp);
         }
         if (action.startsWith ("/deleteCustomer")) {
-            Long id = Long.valueOf ((req.getParameter("id")));
+            Long id = Long.valueOf ((req.getParameter ("id")));
             Optional<Customer> customer = customerRepository.findById (id);
-            if(!customer.isPresent ()){
-                req.setAttribute("message", "Customer not found");
+            if (!customer.isPresent ()) {
+                req.setAttribute ("message", "Customer not found");
             } else {
                 customerRepository.deleteById (id);
-                req.setAttribute("message", String.format("Customer with ID=%s deleted", id));
+                req.setAttribute ("message", String.format ("Customer with ID=%s deleted", id));
             }
             req.getRequestDispatcher ("/view/customer/delete_customer.jsp");
         }
-           if(action.startsWith("/updateCustomer")){
-                   String newIndustry = req.getParameter("industry");
-                   String newCity = req.getParameter("city");
-                  // customer.get ().setIndustry (newIndustry);
-             //      customer.get ().setCity (newCity);
-              //     customerRepository.save (customer.get ());
-                   req.setAttribute("message", String.format("Customer updated: ID=%s, name=%s, city=%s, industry=%s"));
-               }
-               req.getRequestDispatcher("/view/customer/update_customer.jsp").forward(req, resp);
-           }
-
+        if (action.startsWith ("/updateCustomer")) {
+            Long id = Long.valueOf ((req.getParameter ("id")));
+            Optional<Customer> customer = customerRepository.findById (id);
+                String newIndustry = req.getParameter ("industry");
+                String newCity = req.getParameter ("city");
+                customer.get ().setIndustry (newIndustry);
+                customer.get ().setCity (newCity);
+                customerRepository.update (customer.get ());
+                req.setAttribute ("message", "Customer updated");
+            }
+            req.getRequestDispatcher ("/view/customer/update_customer.jsp").forward (req, resp);
+        }
 
     private Customer mapCustomer(HttpServletRequest req) {
         final Long customerId = Long.valueOf (req.getParameter ("id"));

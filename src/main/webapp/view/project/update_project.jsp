@@ -9,7 +9,7 @@
 </head>
 <body>
 <c:import url="/view/navigation.jsp"/>
-<h3>To update Project Cost, provide an ID and new Cost: </h3>
+<h3>To update Project, provide an ID and new cost: </h3>
 <form method="post" action="updateProject">
     <table>
         <tbody>
@@ -21,7 +21,7 @@
         </tr>
         <tr>
             <td>
-                <p>New Cost: </p>
+                <p>New cost: </p>
             </td>
             <td><input type="number" name="cost"></td>
         </tr>

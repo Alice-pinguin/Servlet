@@ -2,28 +2,24 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html lang="en-us">
 <head>
-    <title>Update Customer</title>
+    <title>Update Company</title>
     <style>
         <%@include file="/view/style.css" %>
     </style>
 </head>
 <body>
 <c:import url="/view/navigation.jsp"/>
-<h3>To update Customer provide an ID and new industry and city: </h3>
-<form method="post" action="updateCustomer">
+<h3>To update Company provide an ID and new city: </h3>
+<form method="post" action="updateCompany">
     <table>
         <tbody>
         <tr>
             <td>
-                <p>Customer ID:</p>
+                <p>Company ID:</p>
             </td>
             <td><input type="number" name="id"></td>
         </tr>
         <tr>
-            <td>
-                <p>New industry: </p>
-            </td>
-            <td><input type="text" name="industry"></td>
             <td>
                 <p>New city: </p>
             </td>
