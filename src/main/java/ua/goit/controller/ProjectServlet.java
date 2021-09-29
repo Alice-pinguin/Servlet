@@ -85,9 +85,8 @@ public class ProjectServlet extends HttpServlet {
             project.get ().setCost (Long.valueOf (newCost));
             projectRepository.update (project.get ());
             req.setAttribute ("message", "Project  updated");
-
+            req.getRequestDispatcher ("/view/project/update_project.jsp").forward (req, resp);
         }
-        req.getRequestDispatcher ("/view/project/update_project.jsp").forward (req, resp);
     }
 
 

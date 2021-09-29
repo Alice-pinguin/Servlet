@@ -79,16 +79,17 @@ public class DeveloperServlet extends HttpServlet {
                 req.setAttribute ("message", String.format ("Developer with ID=%s deleted", id));
             }
         }
-            if (action.startsWith ("/updateDeveloper")) {
-                Long id = Long.valueOf ((req.getParameter ("id")));
-                Optional<Developer> developer = developerRepository.findById (id);
-                String newSalary = req.getParameter ("salary");
-                developer.get ().setSalary (Long.valueOf (newSalary));
-                developerRepository.update (developer.get ());
-                req.setAttribute ("message", "Developer  updated");
-                }
+        if (action.startsWith ("/updateDeveloper")) {
+            Long id = Long.valueOf ((req.getParameter ("id")));
+            Optional<Developer> developer = developerRepository.findById (id);
+            String newSalary = req.getParameter ("salary");
+            developer.get ().setSalary (Long.valueOf (newSalary));
+            developerRepository.update (developer.get ());
+            req.setAttribute ("message", "Developer  updated");
+
             req.getRequestDispatcher ("/view/developer/update_developer.jsp").forward (req, resp);
         }
+    }
 
 
 

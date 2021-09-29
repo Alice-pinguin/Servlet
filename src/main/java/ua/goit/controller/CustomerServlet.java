@@ -83,14 +83,14 @@ public class CustomerServlet extends HttpServlet {
         if (action.startsWith ("/updateCustomer")) {
             Long id = Long.valueOf ((req.getParameter ("id")));
             Optional<Customer> customer = customerRepository.findById (id);
-                String newIndustry = req.getParameter ("industry");
-                String newCity = req.getParameter ("city");
-                customer.get ().setIndustry (newIndustry);
-                customer.get ().setCity (newCity);
-                customerRepository.update (customer.get ());
-                req.setAttribute ("message", "Customer updated");
-            }
+            String newIndustry = req.getParameter ("industry");
+            String newCity = req.getParameter ("city");
+            customer.get ().setIndustry (newIndustry);
+            customer.get ().setCity (newCity);
+            customerRepository.update (customer.get ());
+            req.setAttribute ("message", "Customer updated");
             req.getRequestDispatcher ("/view/customer/update_customer.jsp").forward (req, resp);
+        }
         }
 
     private Customer mapCustomer(HttpServletRequest req) {

@@ -35,4 +35,5 @@ public class Project  implements BaseEntity<Long> {
     @Column(name = "cost", nullable = false, length = 10)
     private Long cost;
 
+
 }

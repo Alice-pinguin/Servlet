@@ -42,14 +42,14 @@ CREATE TABLE developers_skills (
                                    id_skill int NOT NULL,
                                    PRIMARY KEY (id_developer, id_skill),
                                    FOREIGN KEY (id_developer) REFERENCES developers (id) ON DELETE CASCADE,
-                                   FOREIGN KEY (id_skill) REFERENCES skills (id)) ON DELETE CASCADE;
+                                   FOREIGN KEY (id_skill) REFERENCES skills (id) ON DELETE CASCADE);
 
 CREATE TABLE developers_projects (
                                      id_developer int NOT NULL,
                                      id_project int NOT NULL,
                                      PRIMARY KEY (id_developer, id_project),
                                      FOREIGN KEY (id_developer) REFERENCES developers (id) ON DELETE CASCADE,
-                                     FOREIGN KEY (id_project) REFERENCES projects (id)) ON DELETE CASCADE;
+                                     FOREIGN KEY (id_project) REFERENCES projects (id) ON DELETE CASCADE);
 
 CREATE TABLE companies_projects (
                                     id_company int NOT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE companies_projects (
                                     PRIMARY KEY (id_company, id_project),
                                     KEY id_project (id_project),
                                     FOREIGN KEY (id_company) REFERENCES companies (id) ON DELETE CASCADE,
-                                    FOREIGN KEY (id_project) REFERENCES projects (id)) ON DELETE CASCADE;
+                                    FOREIGN KEY (id_project) REFERENCES projects (id) ON DELETE CASCADE);
 
 CREATE TABLE customers_projects (
                                     id_customer int NOT NULL,
@@ -65,4 +65,4 @@ CREATE TABLE customers_projects (
                                     PRIMARY KEY (id_customer, id_project),
                                     KEY id_project (id_project),
                                     FOREIGN KEY (id_customer) REFERENCES customers (id) ON DELETE CASCADE,
-                                    FOREIGN KEY (id_project) REFERENCES projects (id)) ON DELETE CASCADE;
+                                    FOREIGN KEY (id_project) REFERENCES projects (id) ON DELETE CASCADE);

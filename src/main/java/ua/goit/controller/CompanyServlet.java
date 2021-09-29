@@ -81,16 +81,16 @@ public class CompanyServlet extends HttpServlet {
             }
         }
 
-            if (action.startsWith ("/updateCompany")) {
-                Long id = Long.valueOf ((req.getParameter ("id")));
-                Optional<Company> company = companyRepository.findById (id);
-                String newCity = req.getParameter ("city");
-                company.get ().setCity (newCity);
-                companyRepository.update (company.orElseThrow (NullPointerException::new));
-                req.setAttribute ("message", "Company updated");
-            }
+        if (action.startsWith ("/updateCompany")) {
+            Long id = Long.valueOf ((req.getParameter ("id")));
+            Optional<Company> company = companyRepository.findById (id);
+            String newCity = req.getParameter ("city");
+            company.get ().setCity (newCity);
+            companyRepository.update (company.orElseThrow (NullPointerException::new));
+            req.setAttribute ("message", "Company updated");
             req.getRequestDispatcher ("/view/company/update_company.jsp").forward (req, resp);
         }
+    }
 
     private Company mapCompany(HttpServletRequest req) {
         final Long companyId = Long.valueOf (req.getParameter ("id"));
