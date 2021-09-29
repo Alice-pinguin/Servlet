@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-@lombok.extern.log4j.Log4j
 @WebServlet(urlPatterns = "/project/*")
 public class ProjectServlet extends HttpServlet {
     private static final long serialVersionUID = -1916083755011099167L;
@@ -75,8 +74,9 @@ public class ProjectServlet extends HttpServlet {
                 req.setAttribute ("message", "Project not found");
             } else {
                 projectRepository.deleteById (id);
-                req.setAttribute ("message", String.format ("Project with ID=%s deleted", id));
+                req.setAttribute ("message", String.format ("Project deleted"));
             }
+            req.getRequestDispatcher ("/view/project/delete_project.jsp").forward (req, resp);
         }
         if (action.startsWith ("/updateProject")) {
             Long id = Long.valueOf ((req.getParameter ("id")));
@@ -99,7 +99,3 @@ public class ProjectServlet extends HttpServlet {
     }
 
 }
-
-
-
-

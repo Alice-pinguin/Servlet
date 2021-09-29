@@ -109,7 +109,7 @@ public class CrudRepositoryImpl<E extends BaseEntity<ID>, ID> implements Closeab
   @Override
    @SneakyThrows
    public E update(E e) {
-       updatePreparedStatement.setObject(columnFieldName.size() + 1, e.getId());
+       updatePreparedStatement.setObject(columnFieldName.size()+1, e.getId());
        return executeStatement(updatePreparedStatement, e);
   }
 
@@ -123,7 +123,7 @@ public class CrudRepositoryImpl<E extends BaseEntity<ID>, ID> implements Closeab
             statement.setObject(count++, declaredField.get(e));
         }
         statement.executeUpdate();
-        ResultSet rs = statement.getGeneratedKeys();
+        ResultSet rs = statement.getGeneratedKeys ();
         rs.next();
         return findById((ID)rs.getObject(1)).get();
     }

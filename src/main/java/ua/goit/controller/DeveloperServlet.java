@@ -1,6 +1,5 @@
 package ua.goit.controller;
 
-import ua.goit.model.Customer;
 import ua.goit.model.Developer;
 import ua.goit.repository.CrudRepository;
 import ua.goit.repository.RepositoryFactory;
@@ -22,8 +21,7 @@ public class DeveloperServlet extends HttpServlet {
     private CrudRepository<Developer, Long> developerRepository;
 
     @Override
-    public void init() throws ServletException {
-        super.init ();
+    public void init() {
         developerRepository = RepositoryFactory.of (Developer.class);
     }
 
@@ -65,7 +63,7 @@ public class DeveloperServlet extends HttpServlet {
                 req.setAttribute ("message", "Developer not found");
                 req.getRequestDispatcher ("/view/developer/find_developer.jsp").forward (req, resp);
             } else {
-                req.setAttribute ("message", String.format ("Developer found: %s", developerOptional));
+                req.setAttribute ("message", String.format ("Developer found"));
                 req.getRequestDispatcher ("/view/developer/find_developer.jsp").forward (req, resp);
             }
         }
@@ -76,8 +74,9 @@ public class DeveloperServlet extends HttpServlet {
                 req.setAttribute ("message", "Developer not found");
             } else {
                 developerRepository.deleteById (id);
-                req.setAttribute ("message", String.format ("Developer with ID=%s deleted", id));
+                req.setAttribute ("message", String.format ("Developer deleted"));
             }
+            req.getRequestDispatcher("/view/developer/delete_developer.jsp").forward(req, resp);
         }
         if (action.startsWith ("/updateDeveloper")) {
             Long id = Long.valueOf ((req.getParameter ("id")));

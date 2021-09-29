@@ -1,7 +1,5 @@
 package ua.goit.controller;
 
-import lombok.extern.java.Log;
-import lombok.extern.slf4j.Slf4j;
 import ua.goit.model.Customer;
 import ua.goit.repository.CrudRepository;
 import ua.goit.repository.RepositoryFactory;
@@ -15,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-@Log
+
 @WebServlet (urlPatterns = "/customer/*")
 public class CustomerServlet extends HttpServlet {
 
@@ -23,8 +21,7 @@ public class CustomerServlet extends HttpServlet {
     private CrudRepository<Customer, Long> customerRepository;
 
     @Override
-    public void init() throws ServletException {
-        super.init ();
+    public void init()   {
         customerRepository = RepositoryFactory.of (Customer.class);
     }
 
@@ -76,22 +73,26 @@ public class CustomerServlet extends HttpServlet {
                 req.setAttribute ("message", "Customer not found");
             } else {
                 customerRepository.deleteById (id);
-                req.setAttribute ("message", String.format ("Customer with ID=%s deleted", id));
+                req.setAttribute ("message", String.format ("Customer deleted"));
             }
-            req.getRequestDispatcher ("/view/customer/delete_customer.jsp");
-        }
+            req.getRequestDispatcher("/view/customer/delete_customer.jsp").forward(req, resp);
+            }
         if (action.startsWith ("/updateCustomer")) {
             Long id = Long.valueOf ((req.getParameter ("id")));
             Optional<Customer> customer = customerRepository.findById (id);
-            String newIndustry = req.getParameter ("industry");
-            String newCity = req.getParameter ("city");
-            customer.get ().setIndustry (newIndustry);
-            customer.get ().setCity (newCity);
-            customerRepository.update (customer.get ());
-            req.setAttribute ("message", "Customer updated");
-            req.getRequestDispatcher ("/view/customer/update_customer.jsp").forward (req, resp);
+            if (!customer.isPresent ()) {
+                req.setAttribute ("message", "Customer not found");
+            } else {
+                String newIndustry = req.getParameter ("industry");
+                String newCity = req.getParameter ("city");
+                customer.get ().setIndustry (newIndustry);
+                customer.get ().setCity (newCity);
+                customerRepository.update (customer.get ());
+                req.setAttribute ("message", "Customer updated");
+                req.getRequestDispatcher ("/view/customer/update_customer.jsp").forward (req, resp);
+            }
         }
-        }
+    }
 
     private Customer mapCustomer(HttpServletRequest req) {
         final Long customerId = Long.valueOf (req.getParameter ("id"));

@@ -57,7 +57,7 @@ public class CompanyServlet extends HttpServlet {
             Company company = mapCompany (req);
             req.getRequestDispatcher ("/view/company/create_company.jsp").forward (req, resp);
             companyRepository.create (company);
-            req.setAttribute ("message", "New Company created: " + company);
+            req.setAttribute ("message", "New Company created ");
         }
         if (action.startsWith ("/findCompany")) {
             final String id = req.getParameter ("id").trim ();
@@ -66,7 +66,7 @@ public class CompanyServlet extends HttpServlet {
                 req.setAttribute ("message", "Company not found");
                 req.getRequestDispatcher ("/view/company/find_company.jsp").forward (req, resp);
             } else {
-                req.setAttribute ("message", String.format ("Company found: %s", company));
+                req.setAttribute ("message", String.format ("Company found"));
                 req.getRequestDispatcher ("/view/company/find_company.jsp").forward (req, resp);
             }
         }
@@ -77,18 +77,17 @@ public class CompanyServlet extends HttpServlet {
                 req.setAttribute ("message", "Company not found");
             } else {
                 companyRepository.deleteById (id);
-                req.setAttribute ("message", String.format ("Company with ID=%s deleted", id));
+                req.setAttribute ("message", "Company deleted");
             }
+            req.getRequestDispatcher ("/view/company/delete_company.jsp").forward (req, resp);
         }
-
         if (action.startsWith ("/updateCompany")) {
             Long id = Long.valueOf ((req.getParameter ("id")));
             Optional<Company> company = companyRepository.findById (id);
             String newCity = req.getParameter ("city");
             company.get ().setCity (newCity);
-            companyRepository.update (company.orElseThrow (NullPointerException::new));
+            companyRepository.update (company.get ());
             req.setAttribute ("message", "Company updated");
-            req.getRequestDispatcher ("/view/company/update_company.jsp").forward (req, resp);
         }
     }
 
