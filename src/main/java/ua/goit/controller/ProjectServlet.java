@@ -10,11 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.Serial;
 import java.util.List;
 import java.util.Optional;
 
 @WebServlet(urlPatterns = "/project/*")
 public class ProjectServlet extends HttpServlet {
+    @Serial
     private static final long serialVersionUID = -1916083755011099167L;
 
     private  CrudRepository<Project, Long> projectRepository;
@@ -55,6 +57,7 @@ public class ProjectServlet extends HttpServlet {
             req.getRequestDispatcher ("/view/project/create_project.jsp").forward (req, resp);
             projectRepository.create (project);
             req.setAttribute ("message", "New project created: " + project);
+            req.getRequestDispatcher ("/view/project/create_project.jsp").forward (req, resp);
         }
         if (action.startsWith ("/findProject")) {
             final String id = req.getParameter ("id");
@@ -74,7 +77,7 @@ public class ProjectServlet extends HttpServlet {
                 req.setAttribute ("message", "Project not found");
             } else {
                 projectRepository.deleteById (id);
-                req.setAttribute ("message", String.format ("Project deleted"));
+                req.setAttribute ("message", "Project deleted");
             }
             req.getRequestDispatcher ("/view/project/delete_project.jsp").forward (req, resp);
         }
@@ -88,7 +91,6 @@ public class ProjectServlet extends HttpServlet {
             req.getRequestDispatcher ("/view/project/update_project.jsp").forward (req, resp);
         }
     }
-
 
     private Project mapProject(HttpServletRequest req) {
         final Long projectId = Long.valueOf (req.getParameter ("id"));

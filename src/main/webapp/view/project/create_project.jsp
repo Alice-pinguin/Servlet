@@ -9,6 +9,7 @@
 </head>
 <body>
 <c:import url="/view/navigation.jsp"/>
+<h3>To create project, provide an ID, name, field and cost: </h3>
 <form method="post" action="createProject">
     <table>
         <tbody>

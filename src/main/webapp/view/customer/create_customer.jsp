@@ -9,6 +9,7 @@
 </head>
 <body>
 <c:import url="/view/navigation.jsp"/>
+<h3>To Create Customer provide an ID, name, city and industry: </h3>
 <form method="post" action="createCustomer">
     <table>
         <tbody>

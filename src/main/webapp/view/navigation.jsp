@@ -48,4 +48,15 @@
             <a href="${pageContext.request.contextPath}/customer/allCustomers">View all customers</a>
         </div>
     </div>
+    <div class="dropdown">
+    <button class="dropbtn">Other operation
+        <i></i>
+    </button>
+    <div class="dropdown-content">
+        <a href="${pageContext.request.contextPath}/query/getDeveloperByProject">Developers on project</a>
+        <a href="${pageContext.request.contextPath}/query/getSalary">Developers salary</a>
+        <a href="${pageContext.request.contextPath}/query/getLevel">Developers by level</a>
+        <a href="${pageContext.request.contextPath}/query/getLanguage">Developers by language</a>
+    </div>
+</div>
 </div>

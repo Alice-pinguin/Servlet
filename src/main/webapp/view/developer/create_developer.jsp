@@ -9,6 +9,7 @@
 </head>
 <body>
 <c:import url="/view/navigation.jsp"/>
+<h3>To create Developer, provide an ID, name, age, gender: </h3>
 <form method="post" action="createDeveloper">
     <table>
         <tbody>

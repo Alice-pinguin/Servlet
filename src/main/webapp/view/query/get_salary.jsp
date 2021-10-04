@@ -1,21 +1,21 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="en-us">
 <head>
-    <title>Find by ID</title>
+    <title>Developers salary on project</title>
     <style>
         <%@include file="/view/style.css" %>
     </style>
 </head>
 <body>
 <c:import url="/view/navigation.jsp"/>
-<h3>To delete Project, provide an ID: </h3>
-<form method="post" action="findProject">
+<h3>To find developers salary enter ID project</h3>
+<form method="post" action="getSalary">
     <table>
         <tbody>
         <tr>
             <td>
-                <p>ID</p>
+                <p>ID project</p>
             </td>
             <td>
 

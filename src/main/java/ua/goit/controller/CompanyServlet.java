@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.Serial;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,7 @@ import java.util.Optional;
 @WebServlet (urlPatterns = "/company/*")
 public class CompanyServlet extends HttpServlet {
 
+    @Serial
     private static final long serialVersionUID = -6281148666235643052L;
 
     private CrudRepository<Company, Long> companyRepository;
@@ -31,7 +33,6 @@ public class CompanyServlet extends HttpServlet {
         String action = req.getPathInfo ();
         if (action.startsWith ("/findCompany")) {
             req.getRequestDispatcher ("/view/company/find_company.jsp").forward (req, resp);
-
         }
         if (action.startsWith ("/createCompany")) {
             req.getRequestDispatcher ("/view/company/create_company.jsp").forward (req, resp);
@@ -48,6 +49,7 @@ public class CompanyServlet extends HttpServlet {
             req.setAttribute ("companies", companies);
             req.getRequestDispatcher ("/view/company/all_companies.jsp").forward (req, resp);
         }
+
     }
 
     @Override
@@ -60,13 +62,13 @@ public class CompanyServlet extends HttpServlet {
             req.setAttribute ("message", "New Company created ");
         }
         if (action.startsWith ("/findCompany")) {
-            final String id = req.getParameter ("id").trim ();
+            final String id = req.getParameter ("id");
             final Optional<Company> company = companyRepository.findById (Long.valueOf (id));
             if (!company.isPresent ()) {
                 req.setAttribute ("message", "Company not found");
                 req.getRequestDispatcher ("/view/company/find_company.jsp").forward (req, resp);
             } else {
-                req.setAttribute ("message", String.format ("Company found"));
+                req.setAttribute ("message", company);
                 req.getRequestDispatcher ("/view/company/find_company.jsp").forward (req, resp);
             }
         }

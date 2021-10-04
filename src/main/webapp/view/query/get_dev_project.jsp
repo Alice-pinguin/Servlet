@@ -2,34 +2,43 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="en-us">
 <head>
-    <title>Company list</title>
+    <title>Developers</title>
     <style>
         <%@include file="/view/style.css" %>
     </style>
 </head>
 <body>
+<c:import url="/view/navigation.jsp"/>
 <table>
     <tbody>
-    <c:if test="${not empty companies}">
+    <c:if test="${not empty message}">
         <table class="table">
             <thead>
             <tr>
                 <th>ID</th>
-                <th>Company name</th>
-                <th>City</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Salary</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${companies}" var="company">
+            <c:forEach items="${message}" var="developer">
                 <tr>
                     <td>
-                        <c:out value="${company.id}"/>
+                        <c:out value="${developer.id}"/>
                     </td>
                     <td>
-                        <c:out value="${company.name}"/>
+                        <c:out value="${developer.name}"/>
                     </td>
                     <td>
-                        <c:out value="${company.city}"/>
+                        <c:out value="${developer.age}"/>
+                    </td>
+                    <td>
+                        <c:out value="${developer.gender}"/>
+                    </td>
+                    <td>
+                        <c:out value="${developer.salary}"/>
                     </td>
                 </tr>
             </c:forEach>

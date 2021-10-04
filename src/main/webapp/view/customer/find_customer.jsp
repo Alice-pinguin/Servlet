@@ -9,6 +9,7 @@
 </head>
 <body>
 <c:import url="/view/navigation.jsp"/>
+<h3>To delete Customer, provide an ID: </h3>
 <form method="post" action="findCustomer">
     <table>
         <tbody>

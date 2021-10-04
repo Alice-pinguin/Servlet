@@ -1,7 +1,4 @@
 
-import ua.goit.model.Customer;
-import ua.goit.repository.CrudRepository;
-import ua.goit.repository.RepositoryFactory;
 import ua.goit.util.ScriptExecutor;
 
 

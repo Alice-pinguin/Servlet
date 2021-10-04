@@ -113,22 +113,21 @@ public class CrudRepositoryImpl<E extends BaseEntity<ID>, ID> implements Closeab
        return executeStatement(updatePreparedStatement, e);
   }
 
-
-    @SneakyThrows
+  @SneakyThrows
     private E executeStatement(PreparedStatement statement, E e) {
         int count = 1;
-        for (String fieldName : columnFieldName.values()) {
-            Field declaredField = modelClass.getDeclaredField(fieldName);
-            declaredField.setAccessible(true);
-            statement.setObject(count++, declaredField.get(e));
+        for (String fieldName : columnFieldName.values ()) {
+            Field declaredField = modelClass.getDeclaredField (fieldName);
+            declaredField.setAccessible (true);
+            statement.setObject (count++, declaredField.get (e));
         }
-        statement.executeUpdate();
+        statement.executeUpdate ();
         ResultSet rs = statement.getGeneratedKeys ();
-        rs.next();
-        return findById((ID)rs.getObject(1)).get();
+        return findById (rs.next () ? (ID) rs.getObject (1) : e.getId ()).get ();
     }
 
-    @SneakyThrows
+
+        @SneakyThrows
     private List<E> parse(ResultSet resultSet) {
         final List<E> result = new ArrayList<>();
         while (resultSet.next()) {

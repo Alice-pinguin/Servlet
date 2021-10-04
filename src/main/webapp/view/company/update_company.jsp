@@ -9,7 +9,7 @@
 </head>
 <body>
 <c:import url="/view/navigation.jsp"/>
-<h3>To update Company provide an ID and new city: </h3>
+<h3>To update Company provide an ID and new city and industry: </h3>
 <form method="post" action="updateCompany">
     <table>
         <tbody>

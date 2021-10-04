@@ -9,6 +9,7 @@
 </head>
 <body>
 <c:import url="/view/navigation.jsp"/>
+<h3>To find Company provide an ID: </h3>
 <form method="post" action="findCompany">
     <table>
         <tbody>
@@ -20,7 +21,6 @@
 
                 <input type="number" name="id" tabindex="1"></td>
         </tr>
-
         </tbody>
     </table>
     <button type="submit" class="button">Find</button>

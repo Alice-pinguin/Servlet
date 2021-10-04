@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.Serial;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,7 @@ import java.util.Optional;
 @WebServlet (urlPatterns = "/customer/*")
 public class CustomerServlet extends HttpServlet {
 
+    @Serial
     private static final long serialVersionUID = -3850586523812238656L;
     private CrudRepository<Customer, Long> customerRepository;
 
@@ -62,7 +64,7 @@ public class CustomerServlet extends HttpServlet {
             if (!customer.isPresent ()) {
                 req.setAttribute ("message", "Customer not found");
             } else {
-                req.setAttribute ("message", String.format ("Customer found: %s", customer));
+                req.setAttribute ("message", String.format ("Customer found: %s, ", customer));
             }
             req.getRequestDispatcher ("/view/customer/find_customer.jsp").forward (req, resp);
         }
@@ -73,7 +75,7 @@ public class CustomerServlet extends HttpServlet {
                 req.setAttribute ("message", "Customer not found");
             } else {
                 customerRepository.deleteById (id);
-                req.setAttribute ("message", String.format ("Customer deleted"));
+                req.setAttribute ("message", "Customer deleted");
             }
             req.getRequestDispatcher("/view/customer/delete_customer.jsp").forward(req, resp);
             }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.Serial;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,7 @@ import java.util.Optional;
 @WebServlet (urlPatterns = "/developer/*")
 public class DeveloperServlet extends HttpServlet {
 
+    @Serial
     private static final long serialVersionUID = 8144470900821213687L;
     private CrudRepository<Developer, Long> developerRepository;
 
@@ -54,7 +56,7 @@ public class DeveloperServlet extends HttpServlet {
             Developer developer = mapDeveloper (req);
             req.getRequestDispatcher ("/view/developer/create_developer.jsp").forward (req, resp);
             developerRepository.create (developer);
-            req.setAttribute ("message", "New developer created: " + developer);
+            req.setAttribute ("message", "New developer created: "+ developer);
         }
         if (action.startsWith ("/findDeveloper")) {
             final String id = req.getParameter ("id").trim ();
@@ -63,7 +65,7 @@ public class DeveloperServlet extends HttpServlet {
                 req.setAttribute ("message", "Developer not found");
                 req.getRequestDispatcher ("/view/developer/find_developer.jsp").forward (req, resp);
             } else {
-                req.setAttribute ("message", String.format ("Developer found"));
+                req.setAttribute ("message", String.format ("Developer found: %s", developerOptional));
                 req.getRequestDispatcher ("/view/developer/find_developer.jsp").forward (req, resp);
             }
         }
@@ -74,7 +76,7 @@ public class DeveloperServlet extends HttpServlet {
                 req.setAttribute ("message", "Developer not found");
             } else {
                 developerRepository.deleteById (id);
-                req.setAttribute ("message", String.format ("Developer deleted"));
+                req.setAttribute ("message", "Developer deleted");
             }
             req.getRequestDispatcher("/view/developer/delete_developer.jsp").forward(req, resp);
         }
