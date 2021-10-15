@@ -68,7 +68,7 @@ public class CompanyServlet extends HttpServlet {
                 req.setAttribute ("message", "Company not found");
                 req.getRequestDispatcher ("/view/company/find_company.jsp").forward (req, resp);
             } else {
-                req.setAttribute ("message", company);
+                req.setAttribute("message", String.format("Company found: %s", company));
                 req.getRequestDispatcher ("/view/company/find_company.jsp").forward (req, resp);
             }
         }

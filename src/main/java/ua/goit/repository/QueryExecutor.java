@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface QueryExecutor<E extends BaseEntity<ID>, ID> {
 
-    Long getTotalSalaryDevelopersByProject(Long id);
+    List<E> getTotalSalaryDevelopersByProject(Long id);
 
     List<E> getListOfDevelopersFromProject(Long id);
 

@@ -12,10 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Serial;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 @WebServlet(urlPatterns = "/query/*")
 public class QueryController extends HttpServlet {
@@ -68,7 +66,7 @@ public class QueryController extends HttpServlet {
         if (action.startsWith ("/getLevel")) {
             final String level = req.getParameter ("level");
             List<Developer> byLevel = queryExecutor.getDeveloperByLevel (level);
-            req.setAttribute ("allDevelopers", byLevel);
+            req.setAttribute ("message", byLevel);
             req.getRequestDispatcher ("/view/query/get_level.jsp").forward (req, resp);
         }
 
@@ -80,8 +78,8 @@ public class QueryController extends HttpServlet {
         }
         if (action.startsWith ("/getSalary")) {
             final String id = req.getParameter ("id");
-            Long salary = queryExecutor.getTotalSalaryDevelopersByProject (Long.valueOf (id));
-            req.setAttribute ("allDevelopers", salary);
+            List salary = queryExecutor.getTotalSalaryDevelopersByProject (Long.valueOf (id));
+            req.setAttribute ("message", salary);
             req.getRequestDispatcher ("/view/query/get_salary.jsp").forward (req, resp);
         }
     }
